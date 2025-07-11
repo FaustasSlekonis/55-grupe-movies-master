@@ -19,6 +19,7 @@ export class PageTemplate {
                 <meta name="apple-mobile-web-app-title" content="Coming soon" />
                 <link rel="manifest" href="/favicon/site.webmanifest" />
                 <link rel="stylesheet" href="/css/bootstrap.min.css">
+                <link rel="stylesheet" href="/css/custom.css">
             </head>`;
     }
 
@@ -44,11 +45,23 @@ export class PageTemplate {
                         </a>
                     </div>
                     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">${HTML}</ul>
-                    <div class="col-md-3 text-end">
-                        <a href="/login" class="btn btn-outline-primary me-2">Login</a>
-                        <a href="/register" class="btn btn-primary">Register</a>
-                    </div>
+                    ${this.userMenu()}
                 </header>
+            </div>`;
+    }
+
+    userMenu() {
+        if (this.req.user.isLoggedIn) {
+            return `
+                <div class="col-md-3 text-end">
+                    <a href="/admin" class="btn btn-primary">Dashboard</a>
+                </div>`;
+        }
+
+        return `
+            <div class="col-md-3 text-end">
+                <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+                <a href="/register" class="btn btn-primary">Register</a>
             </div>`;
     }
 
